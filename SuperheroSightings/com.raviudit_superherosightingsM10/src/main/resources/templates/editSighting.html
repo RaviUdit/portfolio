@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Superhero Sightings - Ravi Udit</title>
+  </head>
+  <body>
+    <!-- Main Body of Page -->
+    
+
+    <div class="container">
+        <div class="row m-4">
+            <div class="col text-center border border-dark">
+                <h1>Superhero Sightings</h1>
+            </div>
+        </div>
+        <div class="row m-4 border border-dark">
+            <div class="col text-center m-3">
+                <a href="powers" class="btn btn-outline-primary btn-lg">Super Powers</a>
+            </div>
+            <div class="col text-center m-3">
+                <a href="teams" class="btn btn-outline-primary btn-lg">Teams</a>
+            </div>
+            <div class="col text-center m-3">
+                <a href="supers" class="btn btn-outline-primary btn-lg">Superheroes and Villains</a>
+            </div>
+            <div class="col text-center m-3">
+                <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
+            </div>
+            <div class="col text-center m-3">
+                <a href="sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
+            </div>
+        </div>
+    </div>  
+    
+    <!-- Edit Sighting -->
+    
+    <div class="row m-4 border border-dark">
+        <div class="col-3 text-center m-3">
+                    <span class="h3">Add Sighting</span>
+        </div>
+        <div class="col-7 text-center m-3">
+            <form action="editSighting" method="POST">
+                <label for="locationId" class="col-3 col-form-label">
+                                Location</label>
+                            <div class="col-9">
+                                <select id='locationId' name='locationId' class='form-control'>
+                                    <option th:each="location : ${locations}"
+                                            th:value="${location.locationID}"
+                                            th:text="${location.locationName}"
+                                            th:selected="${sighting.location.locationID == location.locationID}">
+                                            Location </option>
+                                </select>
+                            </div>
+                <label for="heroId" class="col-3 col-form-label">
+                                Hero</label>
+                            <div class="col-9">
+                                <select id='heroId' name='heroId' class='form-control'>
+                                    <option th:each="hero : ${heroes}"
+                                            th:value="${hero.id}"
+                                            th:text="${hero.name}"
+                                            th:selected="${sighting.superhero.id == hero.id}">
+                                            Superhero </option>
+                                </select>
+                            </div>
+                
+                
+                
+                <label for="sightingDate" class="col-3 col-form-label">
+                                Sighting Date</label>
+                            <input type="datetime-local" id="sightingDate" name="sightingDate"
+                                   th:value="${sighting.sightingDate}" class="form-control"/>  
+                
+                            <!-- Error Checking -->
+                            
+<!--                            <div th:if="${#fields.hasErrors('sighting.sightingDate')}">
+                                <p th:each="error : ${#fields.errors('sighting.sightingDate')}"
+                                   class="alert alert-danger" th:text="${error}"> 
+                                    Bad Date </p> 
+                            </div>-->
+
+                        <div class="col-12 m-1 text-center" 
+                                      th:if="${!errors.isEmpty()}">
+                                    <p class="alert alert-danger" th:each="error : ${errors}" 
+                                        th:text="${error.message}">Error message</p>
+                                </div>
+                                                    
+                            <input type="hidden" name="sightingID" th:value="${sighting.sightingID}"/>
+                <button type="submit" class="btn btn-primary">Edit Sighting</button>
+                <a href="sightings" class="btn btn-outline-primary">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- End main body -->
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
